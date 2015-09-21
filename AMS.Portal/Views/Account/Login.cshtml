@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "登录";
+    Layout = "~/Views/Shared/_Landing.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bootstrap-admin-login-form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <h1>登录</h1>
+        <div class="form-group">
+            <input class="form-control" type="text" name="UserName" placeholder="用户名">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="Password" placeholder="密码">
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="remember_me">
+                记住我
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary" type="submit">登录</button>
+    }
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            // Setting focus
+            $('input[name="UserName"]').focus();
+            // Setting width of the alert box
+            var formWidth = $('.bootstrap-admin-login-form').innerWidth();
+        });
+    </script>
+}

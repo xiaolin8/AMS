@@ -1,0 +1,217 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>组织机构表单</title>
+    <link href="../../Themes/Styles/style.css" rel="stylesheet" />
+    <script src="../../Themes/Scripts/Jquery/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/TreeView/jquery.cookie.js"></script>
+    <link href="../../Themes/Scripts/TreeView/jquery.treeview.css" rel="stylesheet" />
+    <script src="../../Themes/Scripts/TreeView/jquery.treeview.js"></script>
+    <script src="../../Themes/Scripts/DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/Validator/JValidator.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/artDialog/artDialog.source.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/artDialog/iframeTools.source.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/Jquery/FunctionJS.js" type="text/javascript"></script>
+</head>
+<body>
+    <form id="form1" class="niceform">
+        <table border="0" cellpadding="0" cellspacing="0" class="frm">
+            <tr>
+                <th>
+                    编号：
+                </th>
+                <td>
+                    <input id="Code" maxlength="50" type="text" class="txt" datacol="yes" err="编号" checkexpession="NotNull" style="width: 220px" />
+                </td>
+                <th>
+                    名称：
+                </th>
+                <td>
+                    <input id="FullName" maxlength="50" type="text" class="txt" datacol="yes" err="名称" checkexpession="NotNull" style="width: 220px" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    简称：
+                </th>
+                <td>
+                    <input id="ShortName" maxlength="50" type="text" class="txt" style="width: 220px" />
+                </td>
+                <th>
+                    上级节点：
+                </th>
+                <td>
+                    <input id="ParentId" type="hidden" />
+                    <input id="ParentName" type="text" class="txt" datacol="yes" err="上级节点"
+                           checkexpession="NotNull" style="width: 220px" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    分类：
+                </th>
+                <td>
+                    <select id="Category" class="select" datacol="yes" err="分类" checkexpession="NotNull" style="width: 226px">
+                        <option value="">请选择分类</option>
+                        <option value="集团">集团</option>
+                        <option value="区域">区域</option>
+                        <option value="公司">公司</option>
+                        <option value="子公司">子公司</option>
+                        <option value="部门">部门</option>
+                        <option value="子部门">子部门</option>
+                        <option value="工作组">工作组</option>
+                    </select>
+                </td>
+                <th>
+                    主负责人：
+                </th>
+                <td>
+                    <input id="Manager" maxlength="50" class="txt" type="text" style="width: 220px" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    有效：
+                </th>
+                <td colspan="3">
+                    <span class="item">
+                        <input id="Enabled" type="checkbox" checked="checked" style="vertical-align: middle;" />
+                        <label for="Enabled" style="vertical-align: middle;">有效</label>
+                        &nbsp;&nbsp;
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    说明：
+                </th>
+                <td colspan="3">
+                    <textarea id="Description" maxlength="200" type="text" class="txtArea" rows="8" style="width: 595px"></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="frmbottom">
+            <a class="l-btn" href="javascript:void(0)" onclick="CommitSave();">
+                <span class="l-btn-left">
+                    <img src="../../Themes/Images/Icon16/accept.png" alt="" />确 认
+                </span>
+            </a>
+            <a class="l-btn" href="javascript:void(0)" onclick="OpenClose();">
+                <span class="l-btn-left">
+                    <img src="../../Themes/Images/Icon16/cancel.png" alt="" />关 闭
+                </span>
+            </a>
+        </div>
+    </form>
+</body>
+</html>
+<script>
+    $(function () {
+        LoadCategory();
+        ManagerAutocomplete();
+    });
+    var OrganizationId = GetQuery('ParentId');
+    //加载上级节点
+    function LoadCategory() {
+        $("#ParentName").focus(function () {
+            var html = "";
+            getAjax('LoadAction', 'action=LoadTree', function (rs) {
+                html = rs;
+            });
+            combotree("ParentName", $("#ParentName").width() + "px", "200px", html);
+            $(".strTree li div").click(function () {
+                $("#ParentId").val($(this).attr('id'));
+                $("#ParentName").val($(this).find('span').html());
+            })
+        })
+    }
+    //主负责人自动补全
+    function ManagerAutocomplete() {
+        $("#Manager").bind("keyup", function (e) {
+            if (e.which != 13 && e.which != 40 && e.which != 38) {
+                var parm = "action=autocomplete&search=" + escape($(this).val());
+                LoadManager(parm);
+            }
+        }).focus(function () {
+            var parm = "action=autocomplete&search=" + escape($(this).val());
+            LoadManager(parm);
+            $(this).select();//当获得输入焦点的时候，选择全部内容
+        });
+        function LoadManager(parm) {
+            getAjax('LoadAction', parm, function (data) {
+                var json = eval("(" + data + ")");
+                var html = "";
+                for (var i = 0; i < json.JSON.length; i++) {
+                    var list = json.JSON[i];
+                    html += "<tr>";
+                    html += '<td style="width: 80px;">' + list.Account + '</td>';
+                    html += '<td style="width: 130px;">' + list.RealName + '</td>';
+                    html += "</tr>";
+                }
+                //点击事件回调
+                autocomplete("Manager", "200px", "220px", html, function (r) {
+                    var array = new Array();
+                    array = r.split('≌');
+                    $("#Manager").val(array[1]);
+                });
+            });
+        }
+        //上，下键盘回调
+        autocompletekeydown("Manager", function (r) {
+            var array = new Array();
+            array = r.split('≌');
+            $("#Manager").val(array[1]);
+        });
+    }
+    //加载组织机构表单
+    if (OrganizationId != undefined) {
+        getAjax("InitControl", "key=" + OrganizationId, function (data) {
+            datajson = eval("(" + data + ")");
+            $("#Code").attr("value", datajson.Code);
+            $("#FullName").attr("value", datajson.FullName);
+            $("#ShortName").attr("value", datajson.ShortName);
+            $("#ParentId").attr("value", datajson.ParentId);
+            $("#Category").attr("value", datajson.Category);
+            $("#Manager").attr("value", datajson.Manager);
+            $("#Description").attr("value", datajson.Description);
+            $("#Enabled").attr("checked", datajson.Enabled == '1' ? true : false);
+            getAjax("GetOrganizationNameById", "ParentId=" + OrganizationId, function (data) {
+                $("#ParentName").attr("value", data);
+            });
+        });
+    }
+    //保存事件
+    function CommitSave() {
+        if (!CheckDataValid('#form1')) {
+            return false;
+        }
+        //获取表单参数
+        var Code = $("#Code").val();
+        var FullName = $("#FullName").val();
+        var ShortName = $("#ShortName").val();
+        var ParentId = $("#ParentId").val();
+        var Category = $("#Category option:selected").val();
+        var Manager = $("#Manager").val();
+        var Enabled = document.getElementById("Enabled").checked == true ? 1 : 0;
+        var Description = $("#Description").val();
+        var Data = {
+            "ams_organization.Code": Code, "ams_organization.FullName": FullName, "ams_organization.ShortName": ShortName, "ams_organization.ParentId": ParentId,
+            "ams_organization.Category": Category, "ams_organization.Manager": Manager, "ams_organization.Enabled": Enabled, "ams_organization.Description": Description
+        };
+        //提交后台进行处理
+        $.ajax({
+            type: "post",
+            data: Data,
+            url: "Insert_Update?OrganizationId=" + OrganizationId,
+            success: function (result) {
+                eval(result);
+            }
+        });
+    }
+</script>

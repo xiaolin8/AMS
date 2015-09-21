@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FC549983-D27C-49E3-ADFE-AA5938695724}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DotNet.Utilities</RootNamespace>
+    <AssemblyName>DotNet.Utilities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\Lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppDirectory\AppDirectoryHelper.cs" />
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="CommonModel\ClientCultureModel.cs" />
+    <Compile Include="CommonModel\Combobox.cs" />
+    <Compile Include="CommonModel\FieldCheck.cs" />
+    <Compile Include="Common\AppContext.cs" />
+    <Compile Include="Common\EntityAttribute.cs" />
+    <Compile Include="Database\Parameter.cs" />
+    <Compile Include="Database\SqlParamHelper.cs" />
+    <Compile Include="Database\SqlTextAndParameter.cs" />
+    <Compile Include="Computer\ComputerHelper.cs" />
+    <Compile Include="ConfigHelper.cs" />
+    <Compile Include="Database\DbErrorMsg.cs" />
+    <Compile Include="Database\DbLog.cs" />
+    <Compile Include="Database\DbReader.cs" />
+    <Compile Include="Database\SqlParam.cs" />
+    <Compile Include="Database\SqlSourceType.cs" />
+    <Compile Include="CommonModel\LoginUser.cs" />
+    <Compile Include="DotNetCode\ClassHelper.cs" />
+    <Compile Include="DotNetCode\ConvertHelper.cs" />
+    <Compile Include="DotNetCode\DateTimeHelper.cs" />
+    <Compile Include="DotNetFile\DirFileHelper.cs" />
+    <Compile Include="DotNetFile\FileDownHelper.cs" />
+    <Compile Include="DotNetFile\FileHelper.cs" />
+    <Compile Include="DotNetFile\FTPHelper.cs" />
+    <Compile Include="DotNetFile\GZipHelper.cs" />
+    <Compile Include="DotNetFile\UploadHelper.cs" />
+    <Compile Include="DotNetWebService\DynamicWebServices.cs" />
+    <Compile Include="DotNetWebService\WebServiceHelper.cs" />
+    <Compile Include="JqGridTreeView\JqGridHelper.cs" />
+    <Compile Include="JsonMessage.cs" />
+    <Compile Include="Json\ConvertJson.cs" />
+    <Compile Include="Json\JsonConvertHelper.cs" />
+    <Compile Include="Json\JsonHelper.cs" />
+    <Compile Include="Json\JsonHelper2.cs" />
+    <Compile Include="Json\JsonToMiniui.cs" />
+    <Compile Include="LogHelper.cs" />
+    <Compile Include="DotNetCode\PinyinHelper.cs" />
+    <Compile Include="DotNetCode\RMBHelper.cs" />
+    <Compile Include="Database\SqlFilterHelper.cs" />
+    <Compile Include="DotNetData\DataReaderHelper.cs" />
+    <Compile Include="DotNetData\DataTableHelper.cs" />
+    <Compile Include="DotNetData\HashtableHelper.cs" />
+    <Compile Include="DotNetData\IListHelper.cs" />
+    <Compile Include="DotNetData\XMLHelper.cs" />
+    <Compile Include="Encrypt\DESEncrypt.cs" />
+    <Compile Include="Encrypt\Md5Helper.cs" />
+    <Compile Include="PqGridParam.cs" />
+    <Compile Include="PDF\PDFOperation.cs" />
+    <Compile Include="PqGridTreeView\TreeView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\ReflectionHelper.cs" />
+    <Compile Include="RequestHelper.cs" />
+    <Compile Include="页面辅助类\MessageHelper.cs" />
+    <Compile Include="Registry\RegistryHelper.cs" />
+    <Compile Include="SoftRegHelper.cs" />
+    <Compile Include="Image\ImageClass.cs" />
+    <Compile Include="Image\ImageDown.cs" />
+    <Compile Include="String\StringHelper.cs" />
+    <Compile Include="Calendar\CNDate.cs" />
+    <Compile Include="BarCode\BarCodeToHTML.cs" />
+    <Compile Include="TraceLog\TraceLogHelper.cs" />
+    <Compile Include="Validation\ValidateUtil.cs" />
+    <Compile Include="Email\SMTPManager.cs" />
+    <Compile Include="SystemInfo\SystemInfo.cs" />
+    <Compile Include="IP\IPScanerHelper.cs" />
+    <Compile Include="WebCache\CacheHelper.cs" />
+    <Compile Include="WebCache\CookieHelper.cs" />
+    <Compile Include="WebCache\RequestSession.cs" />
+    <Compile Include="WebCache\SessionUser.cs" />
+    <Compile Include="XML操作类\XmlHelper.cs" />
+    <Compile Include="XML操作类\XMLProcess.cs" />
+    <Compile Include="图片处理\ImageUpload.cs" />
+    <Compile Include="导出Excel_Word\ExcelHelper.cs" />
+    <Compile Include="导出Excel_Word\WordHelper.cs" />
+    <Compile Include="页面辅助类\HTMLHelper.cs" />
+    <Compile Include="页面辅助类\ShowMsgHelper.cs" />
+    <Compile Include="页面辅助类\WebHelper.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

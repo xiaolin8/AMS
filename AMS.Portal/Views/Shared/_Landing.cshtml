@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 移动办公后台管理系统</title>
+    @Styles.Render("~/Content/Theme")
+    @Scripts.Render("~/bundles/modernizr")   
+
+    <!-- Custom styles -->
+    <style type="text/css">
+        .alert {
+            margin: 0 auto 20px;
+        }
+    </style>
+   
+</head>
+
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+ 
+</body>
+</html>

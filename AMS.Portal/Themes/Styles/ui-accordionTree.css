@@ -1,0 +1,120 @@
+#overlay_navigation {
+    background: rgb(255, 255, 255);
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    filter: alpha(opacity=1);
+    position: absolute;
+    z-index: 1900;
+    opacity: 0.01;
+    -moz-opacity: 0.01;
+}
+
+#navigationtitle {
+    width: 204px;
+    margin-right: 0px;
+    border-right-color: rgb(204, 204, 204);
+    border-right-width: 1px;
+    border-right-style: solid;
+    float: left;
+}
+
+.navigation {
+    width: 204px;
+    height: 100%;
+    margin-right: 0px;
+    border-right-color: rgb(204, 204, 204);
+    border-right-width: 1px;
+    border-right-style: solid;
+    float: left;
+    z-index: 1901;
+    background-color: rgb(242, 242, 242);
+}
+
+.ContentPannel {
+    margin: 0px auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+.btn-nav-toggle {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-left-color: rgb(204, 204, 204);
+    border-left-width: 1px;
+    border-left-style: solid;
+    cursor: pointer;
+}
+
+    .btn-nav-toggle i {
+        background: url("../Images/layout_arrows.png") repeat-x;
+        width: 16px;
+        height: 16px;
+        margin-top: 10px;
+        margin-left: 9px;
+        display: block;
+    }
+
+    .btn-nav-toggle b {
+        background: url("../Images/layout_arrows.png") repeat-x 0% 97%;
+        width: 16px;
+        height: 16px;
+        margin-top: 10px;
+        margin-left: 9px;
+        display: block;
+    }
+
+.accordion {
+    background: rgb(242, 242, 242);
+    margin: 0px auto;
+    width: 100%;
+    max-width: 360px;
+}
+
+    .accordion .link {
+        padding: 0px 0px 0px 42px;
+        height: 35px;
+        color: rgb(77, 77, 77);
+        line-height: 35px;
+        font-size: 14px;
+        font-weight: 400;
+        border-bottom-color: rgb(204, 204, 204);
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        display: block;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .accordion li .img {
+        left: 15px;
+        top: 10px;
+        color: rgb(89, 89, 89);
+        font-size: 18px;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .accordion li i.chevron-down {
+        background: url("../Images/layout_arrows.png") repeat-x 500% 0%;
+        top: 9px;
+        width: 16px;
+        height: 16px;
+        right: 10px;
+        display: block;
+        position: absolute;
+    }
+
+    .accordion li.open i.chevron-down {
+        background: url("../Images/layout_arrows.png") repeat-x 500% 97%;
+    }
+
+.submenu {
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    font-size: 14px;
+    display: none;
+}

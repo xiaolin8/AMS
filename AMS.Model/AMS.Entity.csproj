@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{38044C21-1FD9-4C3C-84B2-CF6788A28432}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMS.Entity</RootNamespace>
+    <AssemblyName>AMS.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Lib\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseManager\BASE_BACKUPJOB.cs" />
+    <Compile Include="BaseManager\BASE_BUTTON.cs" />
+    <Compile Include="BaseManager\BASE_BUTTONPERMISSION.cs" />
+    <Compile Include="BaseManager\BASE_CODERULE.cs" />
+    <Compile Include="BaseManager\BASE_CODERULEDETAIL.cs" />
+    <Compile Include="BaseManager\BASE_CODERULESERIOUS.cs" />
+    <Compile Include="BaseManager\BASE_COMPANY.cs" />
+    <Compile Include="BaseManager\BASE_DATADICTIONARY.cs" />
+    <Compile Include="BaseManager\BASE_DATADICTIONARYDETAIL.cs" />
+    <Compile Include="BaseManager\BASE_DATASCOPEPERMISSION.cs" />
+    <Compile Include="BaseManager\BASE_DEPARTMENT.cs" />
+    <Compile Include="BaseManager\BASE_EMAIL.cs" />
+    <Compile Include="BaseManager\BASE_EMAILACCESSORY.cs" />
+    <Compile Include="BaseManager\BASE_EMAILADDRESSEE.cs" />
+    <Compile Include="BaseManager\BASE_EMAILCATEGORY.cs" />
+    <Compile Include="BaseManager\BASE_EMPLOYEE.cs" />
+    <Compile Include="BaseManager\BASE_EXCELIMPORT.cs" />
+    <Compile Include="BaseManager\BASE_EXCELIMPORTDETAIL.cs" />
+    <Compile Include="BaseManager\BASE_FORMATTRIBUTE.cs" />
+    <Compile Include="BaseManager\BASE_FORMATTRIBUTEVALUE.cs" />
+    <Compile Include="BaseManager\BASE_GROUPUSER.cs" />
+    <Compile Include="BaseManager\BASE_InterfaceManage.cs" />
+    <Compile Include="BaseManager\BASE_InterfaceManageDetails.cs" />
+    <Compile Include="BaseManager\BASE_INTERFACEMANAGEPARAMETER.cs" />
+    <Compile Include="BaseManager\BASE_LANGUAGE.cs" />
+    <Compile Include="BaseManager\BASE_MODULE.cs" />
+    <Compile Include="BaseManager\BASE_MODULEPERMISSION.cs" />
+    <Compile Include="BaseManager\BASE_NETWORKFILE.cs" />
+    <Compile Include="BaseManager\BASE_NETWORKFOLDER.cs" />
+    <Compile Include="BaseManager\BASE_OBJECTUSERRELATION.cs" />
+    <Compile Include="BaseManager\BASE_PHONENOTE.cs" />
+    <Compile Include="BaseManager\BASE_POST.cs" />
+    <Compile Include="BaseManager\BASE_PROVINCECITY.cs" />
+    <Compile Include="BaseManager\BASE_QUERYRECORD.cs" />
+    <Compile Include="BaseManager\BASE_ROLES.cs" />
+    <Compile Include="BaseManager\BASE_SHORTCUTS.cs" />
+    <Compile Include="BaseManager\BASE_SYSLOG.cs" />
+    <Compile Include="BaseManager\BASE_SYSLOGDETAIL.cs" />
+    <Compile Include="BaseManager\BASE_USER.cs" />
+    <Compile Include="BaseManager\BASE_VIEW.cs" />
+    <Compile Include="BaseManager\BASE_VIEWPERMISSION.cs" />
+    <Compile Include="BaseManager\BASE_VIEWWHERE.cs" />
+    <Compile Include="BaseManager\BASE_VIEWWHEREPERMISSION.cs" />
+    <Compile Include="BaseManager\AMS_AppendProperty.cs" />
+    <Compile Include="BaseManager\AMS_AppendPropertyInstance.cs" />
+    <Compile Include="BaseManager\AMS_Button.cs" />
+    <Compile Include="BaseManager\AMS_ButtonPermission.cs" />
+    <Compile Include="BaseManager\AMS_DataPermission.cs" />
+    <Compile Include="BaseManager\AMS_Exception.cs" />
+    <Compile Include="BaseManager\AMS_InterfaceAccess.cs" />
+    <Compile Include="BaseManager\AMS_IPBlacklist.cs" />
+    <Compile Include="BaseManager\AMS_ItemDetails.cs" />
+    <Compile Include="BaseManager\AMS_Items.cs" />
+    <Compile Include="BaseManager\AMS_ModulePermission.cs" />
+    <Compile Include="BaseManager\AMS_Organization.cs" />
+    <Compile Include="BaseManager\AMS_RoleMenu.cs" />
+    <Compile Include="BaseManager\AMS_RoleMenuButton.cs" />
+    <Compile Include="BaseManager\AMS_Roles.cs" />
+    <Compile Include="BaseManager\AMS_Shortcut.cs" />
+    <Compile Include="BaseManager\AMS_StaffOrganize.cs" />
+    <Compile Include="BaseManager\AMS_SysLogDetails.cs" />
+    <Compile Include="BaseManager\AMS_SysLoginLog.cs" />
+    <Compile Include="BaseManager\AMS_SysLogs.cs" />
+    <Compile Include="BaseManager\AMS_SysMenu.cs" />
+    <Compile Include="BaseManager\AMS_SysMenuButton.cs" />
+    <Compile Include="BaseManager\AMS_TableColumns.cs" />
+    <Compile Include="BaseManager\AMS_User.cs" />
+    <Compile Include="BaseManager\AMS_UserMenu.cs" />
+    <Compile Include="BaseManager\AMS_UserMenuButton.cs" />
+    <Compile Include="BaseManager\AMS_UserRole.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AMS.Utilities\DotNet.Utilities.csproj">
+      <Project>{fc549983-d27c-49e3-adfe-aa5938695724}</Project>
+      <Name>DotNet.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

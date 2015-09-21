@@ -1,0 +1,274 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Style/style.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/FunctionJS.js"></script>
+    <link href="~/Content/Extjs4_2/resources/css/ext-all-neptune.css" rel="stylesheet" />
+    <script src="~/Content/Extjs4_2/bootstrap.js"></script>
+    <script>
+
+        function s() { alert(123); }
+
+        Ext.require([
+            'Ext.data.*',
+            'Ext.grid.*',
+            'Ext.tree.*'
+        ]);
+        Ext.onReady(function () {
+            Ext.QuickTips.init();
+            Ext.define('treeNode', {
+                extend: 'Ext.data.Model',
+                fields: [
+                    { name: 'id' },
+                    { name: 'text' },
+                    { name: 'icon' }
+                ]
+            });
+            var companyTreeStore = Ext.create('Ext.data.TreeStore', {
+                model: 'treeNode',
+                autoLoad: true,
+                proxy: {
+                    type: 'ajax',
+                    api: {
+                        read: 'Group/getCompanyTree'
+                    },
+                    reader: {
+                        type: 'json'
+                    }
+                }
+            });
+            Ext.define('groupTreeNode', {
+                extend: 'Ext.data.Model',
+                fields: [
+                    { name: 'id', mapping: 'groupid' },
+                    { name: 'text', mapping: 'groupname' },
+                    //{ name: 'leaf', type: 'boolean', defaultValue: true },
+                    { name: 'icon', defaultValue: '../../Content/Themes/Images/16/users.png' }
+                ]
+            });
+            var groupTreeStore = Ext.create('Ext.data.TreeStore', {
+                model: 'groupTreeNode',
+                autoLoad: true,
+
+                proxy: {
+                    type: 'ajax',
+                    api: {
+                        read: 'Group/getGroupTree'
+                    },
+                    reader: {
+                        type: 'json'
+                    }
+                }
+            });
+            // 添加一个树形面板
+            var companyTreePanel = Ext.create('Ext.tree.Panel', {
+                title: '公司',
+                rootVisible: false,
+                collapsible: true,
+                split: true,
+                el: 'tree-panel',// 将树形添加到一个指定的div中,非常重要！
+                region: 'west',
+                border: 0,
+                style: {
+                    borderColor: 'transparent'
+                },
+                width: 180,
+                minSize: 180,
+                maxSize: 250,
+                enableDD: true,// 是否支持拖拽效果
+                containerScroll: true,// 是否支持滚动条
+                animate: true, // 动画效果
+                store: companyTreeStore,
+                listeners: {
+                    'itemclick': function (view, record, item, index, e) {
+                        //加载对应id的表格数据
+                        //更新store
+                        groupTreeStore.load({
+                            url: 'Group/getAllGroupsByDepID?depId=' + record.data.id,
+                            method: 'POST'
+                        });
+                    }
+                }
+            });
+            // 添加中间的树形面板，群组列表
+            var groupTreePanel = Ext.create('Ext.tree.Panel', {
+                title: '群组',
+                rootVisible: false,
+                collapsible: true,
+                split: true,
+                el: 'tree-panel2',// 将树形添加到一个指定的div中,非常重要！
+                region: 'west',
+                border: 0,
+                style: {
+                    borderColor: 'transparent'
+                },
+                width: 180,
+                minSize: 180,
+                maxSize: 250,
+                border: false,
+                enableDD: true,// 是否支持拖拽效果
+                containerScroll: true,// 是否支持滚动条
+                animate: true, // 动画效果
+                store: groupTreeStore,
+                listeners: {
+                    'itemclick': function (view, record, item, index, e) {
+                        //加载对应id的表格数据
+                        //更新store
+                        store.load({
+                            url: 'Group/getAllMembersByGroupId?groupId=' + record.data.id,
+                            method: 'POST'
+                        });
+                    }
+                }
+            });
+            Ext.define('MemberModel', {
+                extend: 'Ext.data.Model',
+                fields: [
+                     'UserName',
+                     'UserId',
+                     'Gender',
+                     'isOwner',
+                     'CellPhone',
+                     'OfficePhone',
+                     'Email',
+                     'Position'
+                ]
+            });
+            //创建数据源   
+            var store = Ext.create('Ext.data.Store', {
+                model: 'MemberModel',
+                autoLoad: true,
+                remoteFilter: true,
+                remoteSort: true,
+                proxy: {
+                    //异步获取数据，这里的URL可以改为任何动态页面，只要返回JSON数据即可   
+                    type: 'ajax',
+                    //url: 'LogHistoryQuery',
+                    api: {
+                        read: 'Group/getAllMembersByGroupId?groupId=1426834197911750'
+                    },
+                    reader: {
+                        type: 'json'
+                    },
+                    writer: {
+                        type: "json",
+                        encode: true,//encode和root是配套使用的，只有设置了root时，encode才起作用
+                        root: "data",//设置root的好处就是可通过习惯的方式在后台提取数据
+                        allowSingle: false//不然还得判断提交数据是数组还是对象
+                    }
+                }
+            });
+            function ChangeGenderFormat(val) {
+                if (val != null) {
+                    if (val)
+                        return "男";
+                    else
+                        return "女";
+                }
+                return "";
+            }
+            var panel = Ext.create('Ext.grid.Panel', {
+                store: store,
+                selType: 'checkboxmodel',
+                height: document.documentElement.clientHeight - 100,
+                autoScroll: true,
+                columns: [
+                    { xtype: 'rownumberer', text: '全选', width: 45, align: 'left' },
+                    { text: '用户名', dataIndex: 'UserName', width: 150, sortable: true, align: 'center' },
+                    { text: '用户ID', dataIndex: 'UserId', width: 150, sortable: true, align: 'center' },
+                    { text: '性别', dataIndex: 'Gender', sortable: true, align: 'center', renderer: ChangeGenderFormat },
+                    { text: '手机', dataIndex: 'CellPhone', width: 150, sortable: true, align: 'center' },
+                    { text: '办公电话', dataIndex: 'OfficePhone', sortable: true, align: 'center' },
+                    { text: 'Email', width: 220, dataIndex: 'Email', sortable: true }
+                ],
+                border: 0,
+                renderTo: grid,
+                viewConfig: {
+                    getRowClass: function (record, rowIndex, rowParams, store) {
+                        if (record.data.isOwner) {
+                            return 'color';
+                        }
+                    }
+                },
+                listeners: {
+                    'itemdblclick': function (me, record, item, index, e) {
+                    }
+                }
+            });
+            // 右边具体功能面板区
+            var contentPanel = Ext.create('Ext.panel.Panel', {
+                region: 'center',
+                flex: 5,
+                border: false,
+                split: true,
+                layout: 'column',
+                items: [{
+                    columnWidth: 1,        //设置列的宽度
+                    items: [{
+                        border: false,
+                        html: "<div class='tools_bar'><a class='tools_btn' onclick='Replace();' title='刷新当前页面'><span><b id='arrow_refresh'>刷新</b></span></a><div class='tools_separator'></div><a class='tools_btn' onclick='AddMembers();' title=''><span class=''> <b id='application_add'>新增</b></span></a><a class='tools_btn' onclick='edit();' title=''><span><b id='application_edit'>编辑</b></span></a><a class='tools_btn' onclick='Delete();' title=''><span><b id='application_delete'>删除</b></span></a><div class='tools_separator'></div><a class='tools_btn' onclick='ThisCloseTab();' title='关闭当前窗口'><span class=''><b id='back'>离开</b></span></a> </div>",
+                    }, {
+                        border: false,
+                        html: "<tr><th><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查询条件：</th><td><select name='query' id='query' class='select' style='width: 70px'> <option value='Code'>工号</option> <option value='RealName'>姓名</option> <option value='Mobile'>手机</option></select></td><th>&nbsp;&nbsp; 关键字：</th><td><input name='keywords' type='text' id='keywords' class='txt' style='width: 200px'> </td><td><input id='btnSearch' type='button' class='btnSearch' value='搜 索' onclick='ListGrid()'><span class='item'>&nbsp;&nbsp;&nbsp; <input name='Enabled' type='checkbox' id='Enabled' onclick='    ListGrid()' checked='checked' style='vertical-align: middle;'> <label for='Enabled' style='vertical-align: middle;'>只显示有效的</label><br/></span><br/></td></tr>",
+                    }, panel]
+                }]
+            });
+            Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                border: 0,
+                split: true,
+                items: [companyTreePanel, groupTreePanel, contentPanel]
+            });
+        });
+    </script>
+    <style>
+        /*刷新*/
+        #arrow_refresh {
+            background: url('Content/Themes/images/16/arrow_refresh.png') 50% 4px no-repeat;
+        }
+        /*新增*/
+        #application_add {
+            background: url('Content/Themes/images/16/application_add.png') 50% 4px no-repeat;
+        }
+
+        /*编辑*/
+        #application_edit {
+            background: url('Content/Themes/images/16/application_edit.png') 50% 4px no-repeat;
+        }
+
+        /*删除*/
+        #application_delete {
+            background: url('Content/Themes/images/16/application_delete.png') 50% 4px no-repeat;
+        }
+        /*离开*/
+        #back {
+            background: url('Content/Themes/images/16/back.png') 50% 4px no-repeat;
+        }
+
+        .color .x-grid-cell {
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <div id="tree-panel" style="overflow: auto; height: 300px; width: 200px;"></div>
+            </td>
+            <td>
+                <div id="tree-panel2" style="overflow: auto; height: 300px; width: 200px;"></div>
+            </td>
+            <td>
+                <div id="grid"></div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

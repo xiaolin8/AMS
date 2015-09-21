@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67E5ECBF-FA18-4C21-8492-07EB07110F94}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMS.BLL</RootNamespace>
+    <AssemblyName>AMS.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Lib\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="00_CoreService\DataFactory.cs" />
+    <Compile Include="00_CoreService\ServiceBase.cs" />
+    <Compile Include="10_BaseManager\BASE_COMPANYBLL.cs" />
+    <Compile Include="10_BaseManager\BASE_InterfaceManageBLL.cs" />
+    <Compile Include="10_BaseManager\BASE_MODULE.cs" />
+    <Compile Include="10_BaseManager\BASE_USERBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_AppendPropertyBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_ButtonBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_DataBaseBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_DataPermissionBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_InterfaceAccessBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_IPBlacklistBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_ItemDetailsBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_ItemsBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_OrganizationBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_PermissionBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_RoleMenuBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_RoleMenuButtonBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_RolesBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_ShortcutBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_SysLogBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_SysMenuBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_SysMenuButtonBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_TableColumnsBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_UserBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_UserMenuBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_UserMenuButtonBLL.cs" />
+    <Compile Include="10_BaseManager\AMS_UserRoleBLL.cs" />
+    <Compile Include="20_HuanXin\HXService.cs" />
+    <Compile Include="30 Utilities\DataPermission.cs" />
+    <Compile Include="30 Utilities\LogOnHelper.cs" />
+    <Compile Include="30 Utilities\StorePermission.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AMS.DAL\AMS.DAL.csproj">
+      <Project>{97976e4c-5e73-42aa-8ca7-1b6113326776}</Project>
+      <Name>AMS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.Model\AMS.Entity.csproj">
+      <Project>{38044c21-1fd9-4c3c-84b2-cf6788a28432}</Project>
+      <Name>AMS.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.Utilities\DotNet.Utilities.csproj">
+      <Project>{fc549983-d27c-49e3-adfe-aa5938695724}</Project>
+      <Name>DotNet.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

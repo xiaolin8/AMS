@@ -1,0 +1,513 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>员工、职员表单</title>
+    <link href="../../Themes/Styles/style.css" rel="stylesheet" />
+    <script src="../../Themes/Scripts/Jquery/jquery-1.8.2.min.js"></script>
+    <script src="../../Themes/Scripts/DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/Validator/JValidator.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/artDialog/artDialog.source.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/artDialog/iframeTools.source.js" type="text/javascript"></script>
+    <script src="../../Themes/Scripts/Jquery/FunctionJS.js" type="text/javascript"></script>
+</head>
+<body>
+    <form id="form1">
+        <input id="hiddenCompanyId" type="hidden" />
+        <input id="hiddenDepartmentId" type="hidden" />
+        <input id="hiddenWorkgroupId" type="hidden" />
+        <div class="bd">
+            <div class="tipstitle_title settingtable bold bd todayInfoPanelTab rightPanelTitle_normal">
+                <div class="tab_list_top" style="position: absolute">
+                    <div id="basicTab" class="tab_list bd actived" onclick="Tabchange('tb_basic')">基本信息</div>
+                    <div id="workTab" class="tab_list bd " onclick="Tabchange('tb_work')">工作相关</div>
+                    <div id="homeTab" class="tab_list bd " onclick="Tabchange('tb_home')">家庭相关</div>
+                </div>
+            </div>
+            <div class="ScrollBar">
+                <br />
+                <div id="tb_basic" class="tabPanel">
+                    <table border="0" cellpadding="0" cellspacing="0" class="frm">
+                        <tr>
+                            <th>姓名：</th>
+                            <td>
+                                <input id="RealName" maxlength="50" type="text" datacol="yes" err="姓名" checkexpession="NotNull" class="txt" style="width: 220px" />
+                            </td>
+                            <th>账号：</th>
+                            <td>
+                                <input id="Account" maxlength="3" type="text" class="txt" datacol="yes" err="账号" disabled="disabled" value="12321"
+                                       checkexpession="NotNull" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>性别：</th>
+                            <td>
+                                <select id="Gender" class="select" style="width: 226px">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </td>
+                            <th>
+                                公司：
+                            </th>
+                            <td>
+                                <select id="CompanyId" onchange="CompanyClick(this.id)" class="select" datacol="yes" err="公司" checkexpession="NotNull" style="width: 227px"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                部门名称：
+                            </th>
+                            <td>
+                                <select id="DepartmentId" onchange="DepartmentClick(this.id)" class="select" datacol="yes" err="部门名称" checkexpession="NotNull" style="width: 227px"></select>
+                            </td>
+                            <th>
+                                工作组名称：
+                            </th>
+                            <td>
+                                <select id="WorkgroupId" class="select" style="width: 227px"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>出生日期：</th>
+                            <td>
+                                <input id="Birthday" maxlength="23" onfocus="WdatePicker()" class="txt Wdate" type="text" style="width: 220px" />
+                            </td>
+                            <th>所学专业：</th>
+                            <td>
+                                <input id="Major" maxlength="50" type="text" class="txt" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>毕业院校： </th>
+                            <td>
+                                <input id="School" maxlength="200" type="text" class="txt" style="width: 220px" />
+                            </td>
+                            <th>最高学历：</th>
+                            <td>
+                                <select id="Education" class="select" style="width: 227px"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>最高学位：</th>
+                            <td>
+                                <select id="Degree" class="select" style="width: 227px"></select>
+                            </td>
+                            <th>职称：</th>
+                            <td>
+                                <select id="TitleId" class="select" style="width: 227px"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>职称等级： </th>
+                            <td>
+                                <select id="TitleLevel" class="select" style="width: 227px"></select>
+                            </td>
+                            <th>有效：</th>
+                            <td>
+                                <span class="item">
+                                    <input id="Enabled" type="checkbox" checked="checked" style="vertical-align: middle;" />
+                                    <label for="Enabled" style="vertical-align: middle;">有效</label>
+                                    &nbsp;&nbsp;
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>描述：</th>
+                            <td colspan="3">
+                                <textarea id="Description" maxlength="200" type="text" class="txtArea" rows="5" style="width: 594px"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="tb_work" class="tabPanel" style="display: none;">
+                    <table border="0" cellpadding="0" cellspacing="0" class="frm">
+                        <tr>
+                            <th>职位：</th>
+                            <td>
+                                <select id="DutyId" class="select" style="width: 227px"></select>
+                            </td>
+                            <th>身份证号码：</th>
+                            <td>
+                                <input id="IDCard" maxlength="18" type="text" class="txt" datacol="yes" err="身份证号码" checkexpession="IDCardOrNull" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>工资卡：</th>
+                            <td>
+                                <input id="BankCode" maxlength="50" type="text" class="txt" style="width: 220px" />
+                            </td>
+                            <th>加入单位：</th>
+                            <td>
+                                <input id="JoinInDate" onfocus="WdatePicker()" class="txt Wdate" type="text" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>电子邮件：</th>
+                            <td>
+                                <input id="Email" maxlength="50" type="text" datacol="yes" err="电子邮件" checkexpession="isEmailOrNull" class="txt" style="width: 220px" />
+                            </td>
+                            <th>QQ号码：</th>
+                            <td>
+                                <input id="QQ" maxlength="15" type="text" class="txt" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>手机：</th>
+                            <td>
+                                <input id="Mobile" maxlength="11" type="text" class="txt" datacol="yes" err="手机" checkexpession="MobileOrNull" style="width: 220px" />
+                            </td>
+                            <th>办公电话：</th>
+                            <td>
+                                <input id="OfficePhone" maxlength="15" type="text" class="txt" datacol="yes" err="办公电话" checkexpession="PhoneOrNull" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>办公地址：</th>
+                            <td colspan="3">
+                                <input id="OfficeAddress" maxlength="200" type="text" class="txt" style="width: 594px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>是否离职：</th>
+                            <td colspan="3">
+                                <span class="item">
+                                    <input id="IsDimission" type="checkbox" checked="checked" style="vertical-align: middle;" />
+                                    <label for="IsDimission" style="vertical-align: middle;">离职</label>
+                                    &nbsp;&nbsp;
+                                </span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>离职日期：</th>
+                            <td>
+                                <input id="DimissionDate" onfocus="WdatePicker()" class="txt Wdate" type="text" style="width: 220px" />
+                            </td>
+                            <th>离职去向：</th>
+                            <td>
+                                <input id="DimissionWhither" maxlength="200" type="text" class="txt" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>离职原因：</th>
+                            <td colspan="3">
+                                <textarea id="DimissionCause" maxlength="200" type="text" class="txtArea" rows="5" style="width: 594px"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="tb_home" class="tabPanel" style="display: none;">
+                    <table border="0" cellpadding="0" cellspacing="0" class="frm">
+                        <tr>
+                            <th>国籍：</th>
+                            <td>
+                                <select id="Nation" class="select" style="width: 227px"></select>
+                            </td>
+                            <th>民族：</th>
+                            <td>
+                                <select id="Nationality" class="select" style="width: 227px"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>籍贯：</th>
+                            <td>
+                                <input id="NativePlace" maxlength="50" type="text" class="txt" style="width: 220px" />
+                            </td>
+                            <th>政治面貌：</th>
+                            <td>
+                                <select id="Party" class="select" style="width: 227px"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>住宅电话：</th>
+                            <td>
+                                <input id="HomePhone" maxlength="15" type="text" class="txt" datacol="yes" err="住宅电话" checkexpession="PhoneOrNull" style="width: 220px" />
+                            </td>
+                            <th>紧急联系：</th>
+                            <td>
+                                <input id="EmergencyContact" maxlength="50" type="text" class="txt" style="width: 220px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>家庭住址：</th>
+                            <td colspan="3">
+                                <textarea id="HomeAddress" maxlength="200" type="text" class="txtArea" rows="5" style="width: 594px"></textarea>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="frmbottom">
+            <a class="l-btn" href="javascript:void(0)" onclick="CommitSave();">
+                <span class="l-btn-left">
+                    <img src="../../Themes/Images/Icon16/accept.png" alt="" />确 认
+                </span>
+            </a>
+            <a class="l-btn" href="javascript:void(0)" onclick="OpenClose();">
+                <span class="l-btn-left">
+                    <img src="../../Themes/Images/Icon16/cancel.png" alt="" />关 闭
+                </span>
+            </a>
+        </div>
+    </form>
+</body>
+</html>
+<script>
+    $(function () {
+        divresize('.ScrollBar', 90);
+        LoadBindDrop();
+        Tabchange('tb_basic');
+
+    });
+    //绑定下拉框，公司，部门，工作组begin
+    var datajson = "";
+    function LoadBindDrop() {
+        $("#CompanyId").append("<option value=''>" + "==请选择==" + "</option>");
+        $("#DepartmentId").append("<option value=''>" + "==请选择==" + "</option>");
+        $("#WorkgroupId").append("<option value=''>" + "==请选择==" + "</option>");
+        getAjax("../Organize/LoadAction", "action=LoadBindDrop", function (data) {
+            datajson = eval("(" + data + ")");
+            $.each(datajson, function (i) {
+                if (datajson[i].Category == '公司') {
+                    $("#CompanyId").append($("<option></option>").val(datajson[i].OrganizationId).html(datajson[i].FullName));
+                }
+            });
+        });
+        if (IsNullOrEmpty(GetQuery('key'))) {
+            var hiddenCompanyId = $("#hiddenCompanyId").val();
+            $("#CompanyId").val(hiddenCompanyId);
+            CompanyClick("CompanyId");
+        }
+    }
+    function CompanyClick(id) {
+        $("#DepartmentId").empty();
+        $("#DepartmentId").append("<option value=''>" + "==请选择==" + "</option>");
+        $.each(datajson, function (i) {
+            if (datajson[i].ParentId == $('#' + id).val()) {
+                $("#DepartmentId").append("<option value='" + datajson[i].OrganizationId + "'>" + datajson[i].FullName + "</option>");
+            }
+        });
+        if (IsNullOrEmpty(GetQuery('key'))) {
+            var hiddenDepartmentId = $("#hiddenDepartmentId").val();
+            $("#DepartmentId").val(hiddenDepartmentId);
+            DepartmentClick("DepartmentId");
+        }
+    }
+    function DepartmentClick(id) {
+        $("#WorkgroupId").empty();
+        $("#WorkgroupId").append("<option value=''>" + "==请选择==" + "</option>");
+        $.each(datajson, function (i) {
+            if (datajson[i].ParentId == $('#' + id).val()) {
+                $("#WorkgroupId").append("<option value='" + datajson[i].OrganizationId + "'>" + datajson[i].FullName + "</option>");
+            }
+        });
+        if (IsNullOrEmpty(GetQuery('key'))) {
+            var hiddenWorkgroupId = $("#hiddenWorkgroupId").val();
+            $("#WorkgroupId").val(hiddenWorkgroupId);
+        }
+    }
+    //绑定下拉框，公司，部门，工作组end
+
+    //绑定下拉框，最高学历
+    $("#Education").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitEducationDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#Education").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#Education").attr("value", Education);
+    });
+
+    //绑定下拉框，最高学位
+    $("#Degree").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitDegreeDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#Degree").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#Degree").attr("value", Degree);
+    });
+
+    //绑定下拉框，最高学位
+    $("#TitleId").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitTitleIdDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#TitleId").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#TitleId").attr("value", TitleId);
+    });
+
+    //绑定下拉框，最高学位
+    $("#TitleLevel").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitTitleLevelDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#TitleLevel").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#TitleLevel").attr("value", TitleLevel);
+    });
+
+    //绑定下拉框，最高学位
+    $("#DutyId").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitDutyIdDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#DutyId").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#DutyId").attr("value", DutyId);
+    });
+
+    //绑定下拉框，最高学位
+    $("#Nation").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitNationDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#Nation").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#Nation").attr("value", Nation);
+    });
+
+    //绑定下拉框，最高学位
+    $("#Nationality").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitNationalityDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#Nationality").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#Nationality").attr("value", Nationality);
+    });
+
+    //绑定下拉框，最高学位
+    $("#Party").append("<option value=''>" + "==请选择==" + "</option>");
+    getAjax("InitPartyDrop", "", function (data) {
+        datajson = eval("(" + data + ")");
+        $.each(datajson, function (i) {
+            $("#Party").append($("<option></option>").val(datajson[i].ItemCode).html(datajson[i].ItemName));
+        });
+        $("#Party").attr("value", Party);
+    });
+
+
+    var key = GetQuery('key');//用户主键
+    //加载用户表单
+    if (key != undefined) {
+        getAjax("InitControl", "key=" + key, function (data) {
+            datajson = eval("(" + data + ")");
+            alert(data);
+            $("#RealName").val(user.RealName);
+            $("#Gender").attr("value", user.Gender);
+            $("#CompanyId").attr("value", user.CompanyId);
+            $("#DepartmentId").attr("value", user.DepartmentId);
+            $("#WorkgroupId").attr("value", user.WorkgroupId);
+            $("#Birthday").val(user.Birthday);
+            $("#Major").val(user.Major);
+            $("#School").val(user.School);
+            $("#Education").attr("value", user.Education);
+            $("#Degree").attr("value", user.Degree);
+            $("#TitleId").attr("value", user.TitleId);
+            $("#TitleLevel").attr("value", user.TitleLevel);
+            $("#chk_id").attr("checked", true);//勾选
+            $("#Birthday").val(user.Birthday);
+            $("#Birthday").val(user.Birthday);
+            var Enabled = document.getElementById("Enabled").checked;
+            var DutyId = $("#DutyId option:selected").val();
+            var IDCard = $("#IDCard").val();
+            var BankCode = $("#BankCode").val();
+            var JoinInDate = $("#JoinInDate").val();
+            var Email = $("#Email").val();
+            var JoinInDate = $("#JoinInDate").val();
+            var QQ = $("#QQ").val();
+            var Mobile = $("#Mobile").val();
+            var OfficePhone = $("#OfficePhone").val();
+            var OfficeAddress = $("#OfficeAddress").val();
+            var IsDimission = document.getElementById("IsDimission").checked;
+            var DimissionDate = $("#DimissionDate").val();
+            var DimissionWhither = $("#DimissionWhither").val();
+            var DimissionCause = $("#DimissionCause").val();
+            var Nation = $("#Nation option:selected").val();
+            var Nationality = $("#Nationality option:selected").val();
+            var NativePlace = $("#NativePlace option:selected").val();
+            var Party = $("#Party option:selected").val();
+            var HomePhone = $("#HomePhone").val();
+            var EmergencyContact = $("#EmergencyContact").val();
+            var HomeAddress = $("#HomeAddress").val();
+        });
+    }
+
+    //保存事件
+    function CommitSave() {
+        if (!CheckDataValid('#form1')) {
+            return false;
+        }
+        $("#hiddenCompanyId").val($("#CompanyId").val());
+        $("#hiddenDepartmentId").val($("#DepartmentId").val());
+        $("#hiddenWorkgroupId").val($("#WorkgroupId").val());
+        //获取表单参数
+        var UserId = GetQuery('key');
+        var RealName = $("#RealName").val();
+        var Gender = $("#Gender option:selected").val();
+        var CompanyId = $("#CompanyId option:selected").val();
+        var DepartmentId = $("#DepartmentId option:selected").val();
+        var WorkgroupId = $("#WorkgroupId option:selected").val();
+        var Birthday = $("#Birthday option:selected").val();
+        var Age = $("#Age").val();
+        var Major = $("#Major").val();
+        var School = $("#School").val();
+        var Education = $("#Education option:selected").val();
+        var Degree = $("#Degree option:selected").val();
+        var TitleId = $("#TitleId option:selected").val();
+        var TitleLevel = $("#TitleLevel option:selected").val();
+        var Enabled = document.getElementById("Enabled").checked;
+        var DutyId = $("#DutyId option:selected").val();
+        var IDCard = $("#IDCard").val();
+        var BankCode = $("#BankCode").val();
+        var JoinInDate = $("#JoinInDate").val();
+        var Email = $("#Email").val();
+        var JoinInDate = $("#JoinInDate").val();
+        var QQ = $("#QQ").val();
+        var Mobile = $("#Mobile").val();
+        var OfficePhone = $("#OfficePhone").val();
+        var OfficeAddress = $("#OfficeAddress").val();
+        var IsDimission = document.getElementById("IsDimission").checked;
+        var DimissionDate = $("#DimissionDate").val();
+        var DimissionWhither = $("#DimissionWhither").val();
+        var DimissionCause = $("#DimissionCause").val();
+        var Nation = $("#Nation option:selected").val();
+        var Nationality = $("#Nationality option:selected").val();
+        var NativePlace = $("#NativePlace option:selected").val();
+        var Party = $("#Party option:selected").val();
+        var HomePhone = $("#HomePhone").val();
+        var EmergencyContact = $("#EmergencyContact").val();
+        var HomeAddress = $("#HomeAddress").val();
+        var Data = {
+            "user.RealName": RealName, "user.Gender": Gender, "user.CompanyId": CompanyId, "user.DepartmentId": DepartmentId, "user.WorkgroupId": WorkgroupId,
+            "user.Birthday": Birthday, "user.Age": Age, "user.Major": Major, "user.School": School, "user.Education": Education, "user.Degree": Degree,
+            "user.TitleId": TitleId, "user.TitleLevel": TitleLevel, "user.Enabled": Enabled, "user.DutyId": DutyId, "user.IDCard": IDCard, "user.BankCode": BankCode,
+            "user.JoinInDate": JoinInDate, "user.QQ": QQ, "user.Mobile": Mobile, "user.OfficePhone": OfficePhone, "user.OfficeAddress": OfficeAddress,
+            "user.IsDimission": IsDimission, "user.DimissionDate": DimissionDate, "user.DimissionWhither": DimissionWhither, "user.DimissionCause": DimissionCause,
+            "user.Nation": Nation, "user.Nationality": Nationality, "user.NativePlace": NativePlace, "user.Party": Party, "user.HomePhone": HomePhone,
+            "user.EmergencyContact": EmergencyContact, "user.HomeAddress": HomeAddress, "user.UserId": UserId
+        };
+        //提交后台进行处理
+        $.ajax({
+            type: "post",
+            data: Data,
+            url: "Insert_Update",
+            success: function (result) {
+                eval(result);
+            }
+        });
+    }
+</script>

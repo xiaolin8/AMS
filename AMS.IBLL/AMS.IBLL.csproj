@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7DB50F00-F432-4EEF-A4D9-FB420ABB3331}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMS.IBLL</RootNamespace>
+    <AssemblyName>AMS.IBLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Lib\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseManager\BASE_COMPANYIBLL.cs" />
+    <Compile Include="BaseManager\BASE_InterfaceManageIBLL.cs" />
+    <Compile Include="BaseManager\BASE_MODULEIBLL.cs" />
+    <Compile Include="BaseManager\BASE_USERIBLL.cs" />
+    <Compile Include="BaseManager\AMS_AppendPropertyIBLL.cs" />
+    <Compile Include="BaseManager\AMS_ButtonIBLL.cs" />
+    <Compile Include="BaseManager\AMS_DataBaseIBLL.cs" />
+    <Compile Include="BaseManager\AMS_DataPermissionIBLL.cs" />
+    <Compile Include="BaseManager\AMS_EmployeeIBLL.cs" />
+    <Compile Include="BaseManager\AMS_InterfaceAccessIBLL.cs" />
+    <Compile Include="BaseManager\AMS_IPBlacklistIBLL.cs" />
+    <Compile Include="BaseManager\AMS_ItemDetailsIBLL.cs" />
+    <Compile Include="BaseManager\AMS_ItemsIBLL.cs" />
+    <Compile Include="BaseManager\AMS_OrganizationIBLL.cs" />
+    <Compile Include="BaseManager\AMS_PermissionIBLL.cs" />
+    <Compile Include="BaseManager\AMS_RoleMenuButtonIBLL.cs" />
+    <Compile Include="BaseManager\AMS_RoleMenuIBLL.cs" />
+    <Compile Include="BaseManager\AMS_RolesIBLL.cs" />
+    <Compile Include="BaseManager\AMS_ShortcutIBLL.cs" />
+    <Compile Include="BaseManager\AMS_SysLogIBLL.cs" />
+    <Compile Include="BaseManager\AMS_SysMenuButtonIBLL.cs" />
+    <Compile Include="BaseManager\AMS_SysMenuIBLL.cs" />
+    <Compile Include="BaseManager\AMS_TableColumnsIBLL.cs" />
+    <Compile Include="BaseManager\AMS_UserIBLL.cs" />
+    <Compile Include="BaseManager\AMS_UserMenuButtonIBLL.cs" />
+    <Compile Include="BaseManager\AMS_UserMenuIBLL.cs" />
+    <Compile Include="BaseManager\AMS_UserRoleIBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AMS.Common\DotNet.Common.csproj">
+      <Project>{6afe3193-0b0d-4fbe-a15f-2a621cad6f50}</Project>
+      <Name>DotNet.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS.Model\AMS.Model.csproj">
+      <Project>{38044c21-1fd9-4c3c-84b2-cf6788a28432}</Project>
+      <Name>AMS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
