@@ -47,30 +47,16 @@
                 <table id="tb_basic" border="0" cellpadding="0" cellspacing="0" class="frm tabPanel" style=" margin-top:1px; border-top: 1px solid #ccc;">
                     <tr>
                         <th class="highlight">
-                            编号：
-                        </th>
-                        <td>
-                            <asp:Label ID="Code" runat="server" Text=""></asp:Label>
-                        </td>
-                        <th class="highlight">
                             登录账户：
                         </th>
                         <td>
-                            <asp:Label ID="Account" runat="server" Text=""></asp:Label>
+                            <label id="Account">@ViewData["Account"]</label>
                         </td>
-                    </tr>
-                    <tr>
                         <th class="highlight">
                             姓名：
                         </th>
                         <td>
-                            <asp:Label ID="RealName" runat="server" Text=""></asp:Label>
-                        </td>
-                        <th class="highlight">
-                            登录密码：
-                        </th>
-                        <td>
-                            <asp:Label ID="Password" runat="server" Text=""></asp:Label>
+                            <label id="RealName">@ViewData["RealName"]</label>
                         </td>
                     </tr>
                     <tr>
@@ -78,13 +64,13 @@
                             性别：
                         </th>
                         <td>
-                            <asp:Label ID="Gender" runat="server" Text=""></asp:Label>
+                            <Label ID="Gender">@ViewData["Gender"]</label>
                         </td>
                         <th class="highlight">
                             手机号码：
                         </th>
                         <td>
-                            <asp:Label ID="Mobile" runat="server" Text=""></asp:Label>
+                            <Label ID="Mobile">@ViewData["Mobile"]</label>
                         </td>
                     </tr>
                     <tr>
@@ -92,13 +78,13 @@
                             出生日期：
                         </th>
                         <td>
-                            <asp:Label ID="Birthday" runat="server" Text=""></asp:Label>
+                            <Label ID="Birthday">@ViewData["Birthday"]</label>
                         </td>
                         <th class="highlight">
                             固定电话：
                         </th>
                         <td>
-                            <asp:Label ID="Telephone" runat="server" Text=""></asp:Label>
+                            <label id="OfficePhone">@ViewData["OfficePhone"]</label>
                         </td>
                     </tr>
                     <tr>
@@ -106,13 +92,13 @@
                             职位：
                         </th>
                         <td>
-                            <asp:Label ID="DutyId" runat="server" Text=""></asp:Label>
+                            <Label ID="DutyId">@ViewData["DutyId"]</label>
                         </td>
                         <th class="highlight">
                             QQ号码：
                         </th>
                         <td>
-                            <asp:Label ID="OICQ" runat="server" Text=""></asp:Label>
+                            <Label ID="QQ">@ViewData["QQ"]</label>
                         </td>
                     </tr>
                     <tr>
@@ -120,29 +106,28 @@
                             职称：
                         </th>
                         <td>
-                            <asp:Label ID="TitleId" runat="server" Text=""></asp:Label>
+                            <Label ID="TitleId">@ViewData["TitleId"]</label>
                         </td>
 
                         <th class="highlight">
                             电子邮件：
                         </th>
                         <td>
-                            <asp:Label ID="Email" runat="server" Text=""></asp:Label>
+                            <Label ID="Email">@ViewData["Email"]</label>
                         </td>
                     </tr>
                     <tr>
-
                         <th class="highlight">
                             公司：
                         </th>
                         <td>
-                            <asp:Label ID="CompanyId" runat="server" Text=""></asp:Label>
+                            <Label ID="CompanyId">@ViewData["CompanyId"]</label>
                         </td>
                         <th class="highlight">
                             默认角色：
                         </th>
                         <td>
-                            <asp:Label ID="RoleId" runat="server" Text=""></asp:Label>
+                            <Label ID="RoleId">@ViewData["RoleId"]</label>
                         </td>
                     </tr>
                     <tr>
@@ -150,13 +135,13 @@
                             部门名称：
                         </th>
                         <td>
-                            <asp:Label ID="DepartmentId" runat="server" Text=""></asp:Label>
+                            <Label ID="DepartmentId">@ViewData["DepartmentId"]</label>
                         </td>
                         <th class="highlight">
                             工作组名称：
                         </th>
                         <td>
-                            <asp:Label ID="WorkgroupId" runat="server" Text=""></asp:Label>
+                            <Label ID="WorkgroupId">@ViewData["WorkgroupId"]</label>
                         </td>
                     </tr>
                     <tr>
@@ -164,7 +149,7 @@
                             有效性：
                         </th>
                         <td colspan="3">
-                            <asp:Label ID="Enabled" runat="server" Text=""></asp:Label>
+                            <Label ID="Enabled">@ViewData["Enabled"]</label>
                         </td>
                     </tr>
                     <tr>
@@ -172,7 +157,7 @@
                             说明：
                         </th>
                         <td colspan="3">
-                            <asp:Label ID="Description" runat="server" Text=""></asp:Label>
+                            <Label ID="Description">@ViewData["Description"]</label>
                         </td>
                     </tr>
                 </table>
@@ -180,7 +165,7 @@
                 <table class="example tabPanel" id="RoleList">
                     <thead>
                         <tr>
-                            <td style="width: 200px;">
+                            <td style="width: 200px; padding-left: 20px;">
                                 角色名称
                             </td>
                             <td style="width: 100px; text-align: center;">
@@ -195,7 +180,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @ViewData["sb_RoleList"]
+                        @Html.Raw(@ViewData["sb_RoleList"])
                     </tbody>
                 </table>
 
@@ -211,7 +196,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @ViewData["PermissionTree"]
+                        @Html.Raw(@ViewData["PermissionTree"])
                     </tbody>
                 </table>
             </div>

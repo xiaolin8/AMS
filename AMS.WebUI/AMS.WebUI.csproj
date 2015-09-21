@@ -186,6 +186,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganizeController.cs" />
+    <Compile Include="Controllers\UserPermissionController.cs" />
     <Compile Include="Controllers\_CommonController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +199,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Themes\Images\hot.gif" />
+    <Content Include="Themes\Images\Icon16\20131129014358627.png" />
     <Content Include="Themes\Images\Icon16\4957_customers.png" />
     <Content Include="Themes\Images\Icon32\10.png" />
     <Content Include="Themes\Images\Icon32\20130717121539279.png" />
@@ -14306,6 +14308,8 @@
     <Content Include="Views\Role\RoleForm.cshtml" />
     <Content Include="Views\Organize\OrganizeChart.cshtml" />
     <Content Include="Views\Organize\OrganizeForm.cshtml" />
+    <Content Include="Views\UserPermission\Index.cshtml" />
+    <Content Include="Views\UserPermission\UserPermissionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

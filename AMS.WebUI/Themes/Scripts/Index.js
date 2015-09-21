@@ -147,5 +147,5 @@ function About() {
 }
 //个性化皮肤设置
 function SkinIndex() {
-    Dialog("/Home/SkinIndex", "SkinIndex", "个性化设置", 580, 350);
+    Dialog("/Home/SkinIndex", "SkinIndex", "个性化设置", 580, 400);
 }

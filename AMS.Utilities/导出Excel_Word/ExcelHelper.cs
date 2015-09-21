@@ -75,7 +75,7 @@ namespace DotNet.Utilities
                     HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
                     HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.UTF8;
                     HttpContext.Current.Response.Charset = "Utf-8";
-                    HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment;filename=" + HttpUtility.UrlEncode(fileName + ".xls", System.Text.Encoding.UTF8));
+                    HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment;filename=" + fileName + ".xls");
 
                     StringBuilder sbHtml = new StringBuilder();
                     sbHtml.AppendLine("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");

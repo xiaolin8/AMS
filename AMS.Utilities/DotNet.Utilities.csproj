@@ -112,6 +112,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="RequestHelper.cs" />
+    <Compile Include="Validation\ValidateCode.cs" />
     <Compile Include="页面辅助类\MessageHelper.cs" />
     <Compile Include="Registry\RegistryHelper.cs" />
     <Compile Include="SoftRegHelper.cs" />

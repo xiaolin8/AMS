@@ -125,7 +125,7 @@
         //重新设置新密码
         function SetNewPassword() {
             var key = GetPqGridRowValue("#grid_paging", 0);
-            var Account = GetPqGridRowValue("#grid_paging", 2);
+            var Account = GetPqGridRowValue("#grid_paging", 1);
             if (IsChecked(key)) {
                 var url = "/User/UpdateUserPwd?key=" + key + '&Account=' + Account;
                 top.Dialog(url, 'UpdateUserPwd', '重新设置新密码', 370, 185, 50, 50);
@@ -143,7 +143,7 @@
         }
         //引出
         function derive() {
-            var parm = 'UserList?action=derive';
+            var parm = 'LoadAction?action=derive';
             window.location.href = parm;
         }
         //刷新

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -16,11 +17,13 @@ namespace AMS.WebUI.Controllers
         AMS_UserBLL ams_userbll = new AMS_UserBLL();
         AMS_UserRoleBLL ams_userrolebll = new AMS_UserRoleBLL();
         AMS_OrganizationBLL ams_organizationbll = new AMS_OrganizationBLL();
-        AMS_PermissionBLL AMS_permissionibll = new AMS_PermissionBLL();
+        AMS_PermissionBLL ams_permissionbll = new AMS_PermissionBLL();
         public string[] Strconditio { get; set; }//显示操作按钮过滤条件
         StringBuilder sb_ButtonPermission = new StringBuilder();
         StringBuilder sb_contextmenu = new StringBuilder();
         StringBuilder sbRole = new StringBuilder();
+        StringBuilder sb_RoleList = new StringBuilder();
+        StringBuilder PermissionTree = new StringBuilder();
         StringBuilder sb_contextmenuItem = new StringBuilder();
         StringBuilder sbCompany = new StringBuilder();
         public string _key, imgGender, strUserInfo;
@@ -54,13 +57,39 @@ namespace AMS.WebUI.Controllers
         {
             _key = Request["key"];//主键
             InitControl();
+            GetRoleList();
+            GetPermissionTree();
+            ViewData["Account"] = ams_user.Account;
+            ViewData["RealName"] = ams_user.RealName;
+            ViewData["Gender"] = ams_user.Gender;
+            ViewData["Mobile"] = ams_user.Mobile;
+            ViewData["Birthday"] = ams_user.Birthday;
+            ViewData["OfficePhone"] = ams_user.OfficePhone;
+            ViewData["DutyId"] = ams_user.DutyId;
+            ViewData["QQ"] = ams_user.QQ;
+            ViewData["TitleId"] = ams_user.TitleId;
+            ViewData["Email"] = ams_user.Email;
+            ViewData["CompanyId"] = ams_user.CompanyId;
+            ViewData["RoleId"] = ams_user.RoleId;
+            ViewData["DepartmentId"] = ams_user.DepartmentId;
+            ViewData["WorkgroupId"] = ams_user.WorkgroupId;
+            ViewData["Enabled"] = ams_user.Enabled;
+            ViewData["Description"] = ams_user.Description;
             ViewData["imgGender"] = imgGender;
             ViewData["strUserInfo"] = strUserInfo;
+            ViewData["sb_RoleList"] = sb_RoleList;
+            ViewData["PermissionTree"] = PermissionTree;
             return View();
         }
 
-        public ActionResult UpdateUserPwd()
+        [HttpGet]
+        public ActionResult UpdateUserPwd(string key, string Account)
         {
+            //if (!string.IsNullOrEmpty(key))
+            //{
+            //    ams_user = ams_userbll.GetEntity(key);
+            //}
+            ViewData["Account"] = Account;
             return View();
         }
 
@@ -82,8 +111,8 @@ namespace AMS.WebUI.Controllers
         {
             if (!string.IsNullOrEmpty(_key))
             {
-                AMS_User user = ams_userbll.GetEntity(_key);
-                if (user.Gender == 1)
+                ams_user = ams_userbll.GetEntity(_key);
+                if (ams_user.Gender == 1)
                 {
                     imgGender = "man.png";
                 }
@@ -91,9 +120,7 @@ namespace AMS.WebUI.Controllers
                 {
                     imgGender = "woman.png";
                 }
-                strUserInfo = user.RealName + "（" + user.Account + "）";
-                Response.Write(JsonHelper.ObjectToJson<AMS_User>(user));
-                Response.End();
+                strUserInfo = ams_user.RealName + "（" + ams_user.Account + "）";
             }
         }
 
@@ -168,6 +195,114 @@ namespace AMS.WebUI.Controllers
             Response.Write(JsonHelper.DropToJson<AMS_ItemDetails>(PartyList, "JSON"));
             Response.End();
         }
+
+        #region 拥有权限
+        /// <summary>
+        /// 拥有权限列表
+        /// </summary>
+        public void GetPermissionTree()
+        {
+            IList list = ams_permissionbll.GetModulePermission(_key);
+            IList listButton = ams_permissionbll.GetButtonPermission(_key);
+            int eRowIndex = 0;
+            foreach (AMS_ModulePermission entity in list)
+            {
+                if (entity.ParentId == "0")
+                {
+                    string trID = "node-" + eRowIndex.ToString();
+                    PermissionTree.Append("<tr id='" + trID + "'>");
+                    PermissionTree.Append("<td style='width: 230px;padding-left:20px;'><img src='/Themes/images/Icon32/" + entity.Img + "' style='width:20px; height:20px;vertical-align: middle;' alt=''/><span style='padding-left:8px;'>" + entity.FullName + "</span></td>");
+                    PermissionTree.Append("<td>" + entity.Description + "</td>");
+                    PermissionTree.Append("</tr>");
+                    //创建子节点
+                    PermissionTree.Append(GetTableTreeNode(entity.MenuId, list, trID, listButton));
+                    eRowIndex++;
+                }
+            }
+            if (eRowIndex == 0)
+            {
+                PermissionTree.Append("<tr><td colspan='2' style=\"text-align: left;color:Red\">没有找到您要的相关数据...</td></tr>");
+            }
+        }
+        /// <summary>
+        /// 创建子节点
+        /// </summary>
+        /// <param name="ParentId">父节点主键</param>
+        /// <param name="list">菜单集合</param>
+        /// <param name="listButton">按钮集合</param>
+        /// <returns></returns>
+        public string GetTableTreeNode(string ParentId, IList list, string parentTRID, IList listButton)
+        {
+            StringBuilder sb_TreeNode = new StringBuilder();
+            int i = 1;
+            foreach (AMS_ModulePermission entity in list)
+            {
+                if (entity.ParentId == ParentId)
+                {
+                    string trID = parentTRID + "-" + i.ToString();
+                    sb_TreeNode.Append("<tr id='" + trID + "' class='child-of-" + parentTRID + "'>");
+                    sb_TreeNode.Append("<td style='padding-left:20px;'><img src='/Themes/images/Icon32/" + entity.Img + "' style='width:20px; height:20px;vertical-align: middle;' alt=''/><span style='padding-left:8px;'>" + entity.FullName + "</span></td>");
+                    sb_TreeNode.Append("<td>" + entity.Description + "</td>");
+                    sb_TreeNode.Append("</tr>");
+                    //创建子节点
+                    sb_TreeNode.Append(GetTableTreeNode(entity.MenuId, list, trID, listButton));
+                    //创建操作按钮
+                    sb_TreeNode.Append(Button(entity.MenuId, listButton, trID));
+                    i++;
+                }
+            }
+            return sb_TreeNode.ToString();
+        }
+        /// <summary>
+        /// 加载权限操作按钮
+        /// </summary>
+        /// <param name="ParentId"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public string Button(string ParentId, IList list, string parentTRID)
+        {
+            StringBuilder sb_Button = new StringBuilder();
+            int i = 1;
+            foreach (AMS_ButtonPermission entity in list)
+            {
+                if (entity.MenuId == ParentId)
+                {
+                    string trID = parentTRID + "-" + i.ToString();
+                    sb_Button.Append("<tr hide='true' id='" + trID + "' class='child-of-" + parentTRID + "'>");
+                    sb_Button.Append("<td style='padding-left:20px;'><img src='/Themes/images/Icon16/" + entity.Img + "' style='width:16px; height:16px;vertical-align: middle;' alt=''/><span style='padding-left:8px;'>" + entity.FullName + " - 按钮</span></td>");
+                    sb_Button.Append("<td>" + entity.Description + "</td>");
+                    sb_Button.Append("</tr>");
+                    i++;
+                }
+            }
+            return sb_Button.ToString();
+        }
+        #endregion
+
+        #region 拥有角色
+        /// <summary>
+        /// 拥有角色
+        /// </summary>
+        public void GetRoleList()
+        {
+            IList list = ams_userrolebll.GetUserRoleListByUserId(_key);
+            int eRowIndex = 0;
+            foreach (AMS_Roles entity in list)
+            {
+                sb_RoleList.Append("<tr>");
+                sb_RoleList.Append("<td style='width: 200px;'>" + entity.FullName + "</span></td>");
+                sb_RoleList.Append("<td style=\"width: 100px; text-align: center;\">" + entity.Code + "</td>");
+                sb_RoleList.Append("<td style=\"width: 100px; text-align: center;\">" + entity.Category + "</td>");
+                sb_RoleList.Append("<td>" + entity.Description + "</td>");
+                sb_RoleList.Append("</tr>");
+                eRowIndex++;
+            }
+            if (eRowIndex == 0)
+            {
+                sb_RoleList.Append("<tr><td colspan='4' style=\"text-align: left;color:Red\">没有找到您要的相关数据...</td></tr>");
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 组织机构
@@ -354,6 +489,10 @@ namespace AMS.WebUI.Controllers
                     Response.Write(JsonHelper.ListToJson<AMS_User>(ams_userbll.AutoComplete(search), "JSON"));
                     Response.End();
                     break;
+                case "derive"://导出Excel
+                    string[] DataColumn = { "登录账户:Account", "真实姓名:RealName", "性别:Gender", "手机号码:Mobile", "QQ号码:QQ", "电子邮件:Email", "岗位:Duty", "职称:Title", "部门名称:DepartmentId", "有效:Enabled", "说明:Description" };
+                    ExcelHelper.ExportExcel<AMS_User>(ams_userbll.GetList(), DataColumn, "用户信息-" + DateTime.Now.ToString("yyyy-MM-dd"));
+                    break;
                 default:
                     break;
             }
@@ -378,6 +517,26 @@ namespace AMS.WebUI.Controllers
             if (!IsOk)
                 return ShowMsgHelper.Alert_Error(MessageHelper.MSG0022);
             return null;
+        }
+
+        /// <summary>
+        /// 返回验证码图片
+        /// </summary>
+        public ActionResult getCheckCode()
+        {
+            //首先实例化验证码的类
+            ValidateCode validateCode = new ValidateCode();
+            //生成验证码指定的长度
+            string code = validateCode.GetRandomString(4);
+            //将验证码赋值给Session变量
+            //Session["ValidateCode"] = code;
+            this.TempData["ValidateCode"] = code;//TempData是一个字典类，作用是在Action执行过程之间传值
+            //简单的说，你可以在执行某个Action的时候，将数据存放在TempData中，那么在下一次Action执行过程中可以使用TempData中的数据
+            //参考：http://developer.51cto.com/art/200904/118494.htm
+            //创建验证码的图片
+            byte[] bytes = validateCode.CreateImage(code);
+            //最后将验证码返回
+            return File(bytes, @"image/jpeg");
         }
     }
 }
