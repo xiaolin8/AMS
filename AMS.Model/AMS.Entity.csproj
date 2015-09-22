@@ -49,6 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseManager\AMS_Group.cs" />
+    <Compile Include="BaseManager\AMS_GroupDetailModel1.cs" />
+    <Compile Include="BaseManager\AMS_GroupDetailModel2.cs" />
+    <Compile Include="BaseManager\AMS_GroupMemberIdModel.cs" />
+    <Compile Include="BaseManager\AMS_KaoQin.cs" />
+    <Compile Include="BaseManager\AMS_MeetingRoom.cs" />
+    <Compile Include="BaseManager\AMS_SimpleGroupsModel1.cs" />
+    <Compile Include="BaseManager\AMS_SimpleGroupsModel2.cs" />
     <Compile Include="BaseManager\BASE_BACKUPJOB.cs" />
     <Compile Include="BaseManager\BASE_BUTTON.cs" />
     <Compile Include="BaseManager\BASE_BUTTONPERMISSION.cs" />

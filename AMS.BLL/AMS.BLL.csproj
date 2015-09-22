@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="00_CoreService\DataFactory.cs" />
     <Compile Include="00_CoreService\ServiceBase.cs" />
+    <Compile Include="10_BaseManager\AMS_MeetingRoomBLL.cs" />
     <Compile Include="10_BaseManager\BASE_COMPANYBLL.cs" />
     <Compile Include="10_BaseManager\BASE_InterfaceManageBLL.cs" />
     <Compile Include="10_BaseManager\BASE_MODULE.cs" />
